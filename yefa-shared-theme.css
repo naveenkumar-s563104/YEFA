@@ -6,17 +6,19 @@
    ========================================================= */
 
 :root{
+  /* Brand colors */
   --yefa-blue:#4674CC;
   --yefa-blue-deep:#1E3A8A;
   --yefa-blue-dark:#315BAA;
-  --yefa-sky:#38BDF8;
-  --yefa-sky:#38BDF8;
   --yefa-sky:#7DD3FC;
   --yefa-sky-strong:#38BDF8;
+  --yefa-sky-soft:#EAF8FF;
+  --yefa-sky-soft-2:#F5FBFF;
   --yefa-orange:#D58A2F;
   --yefa-orange-dark:#B77E16;
   --yefa-orange-soft:#FFF3D8;
 
+  /* Text and surfaces */
   --yefa-heading:#1E3A8A;
   --yefa-text:#334155;
   --yefa-muted:#64748B;
@@ -172,6 +174,13 @@ a{ color:inherit; }
 }
 
 .yefa-btn:hover{ transform:translateY(-3px); }
+
+.yefa-btn:focus-visible,
+.yefa-link:focus-visible,
+.yefa-modal__close:focus-visible{
+  outline:3px solid rgba(213,138,47,.45);
+  outline-offset:3px;
+}
 
 .yefa-btn--primary{
   background:var(--yefa-orange);
@@ -659,30 +668,34 @@ a{ color:inherit; }
 /* Partners */
 .yefa-partner-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
+  grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+  gap:20px;
+}
+
+.yefa-partner-grid--seven{
+  grid-template-columns:repeat(7, 1fr);
 }
 
 .yefa-partner-card{
-  min-height:172px;
+  aspect-ratio:1/1;
+  min-height:140px;
+  padding:18px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:34px;
 }
 
 .yefa-partner-card img{
-  max-height:96px;
+  width:88%;
+  height:88%;
   object-fit:contain;
-  filter:grayscale(100%);
-  opacity:.75;
-  transition:filter .25s ease, opacity .25s ease, transform .25s ease;
+  filter:none;
+  opacity:1;
+  transition:transform .25s ease;
 }
 
 .yefa-partner-card:hover img{
-  filter:grayscale(0);
-  opacity:1;
-  transform:scale(1.035);
+  transform:scale(1.045);
 }
 
 /* Animation */
@@ -696,8 +709,20 @@ a{ color:inherit; }
   to{ opacity:1; transform:translateY(0); }
 }
 
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.01ms !important;
+  }
+}
+
 @media (max-width: 980px){
   :root{ --yefa-section-y:72px; }
+  .yefa-partner-grid--seven{ grid-template-columns:repeat(4,1fr); }
   .yefa-hero__panel,
   .yefa-team-stats{ grid-template-columns:repeat(2,1fr); }
   .yefa-program-grid,
@@ -712,6 +737,7 @@ a{ color:inherit; }
 
 @media (max-width: 680px){
   .yefa-container{ width:min(100% - 28px, var(--yefa-container)); }
+  .yefa-partner-grid--seven{ grid-template-columns:repeat(2,1fr); }
   .yefa-hero{ min-height:auto; padding:64px 0; }
   .yefa-actions{ flex-direction:column; align-items:stretch; }
   .yefa-btn{ width:100%; }
